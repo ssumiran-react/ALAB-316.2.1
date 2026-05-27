@@ -95,8 +95,8 @@ let betweenNumbs = [];
 let guess = 0;
 // delay a second or 1000ms loading
 setTimeout(guessNumberGame, 1000);
-function guessNumberGame() {
 
+function guessNumberGame() {
     guess = Number(prompt('Guess a number from 1-100'));
 
     if (guess === randomNumber) {
@@ -105,20 +105,23 @@ function guessNumberGame() {
         return;
 
     } else if (guess < randomNumber) {
+        if (betweenNumbs[0] == null || guess >= betweenNumbs[0]) {
+            betweenNumbs[0] = guess;
+        }
+        //paintBoxes(betweenNumbs);
+
         guess = Number(window.alert(`The number ${guess} is too low! Try again. 
                 \n ${numOfGuesses} guesses remain.`));
+
     } else {
+        if (betweenNumbs[1] == null || guess <= betweenNumbs[0]) {
+            betweenNumbs[1] = guess;
+        }
+        //paintBoxes(betweenNumbs);
+
         guess = Number(window.alert(`The number ${guess} is too high! Try again. 
                 \n ${numOfGuesses} guesses remain.`));
     }
-
-    if (guess > betweenNumbs[0]) {
-        betweenNumbs[0] = guess;
-
-    } else{
-        betweenNumbs[1] = guess;
-    }
-    //paintBoxes(betweenNumbs);
 
     //Run out guess check
     if (numOfGuesses === 0) {
@@ -131,20 +134,11 @@ function guessNumberGame() {
 }
 
 function paintBoxes(betweenNumbs) {
-
-
-    // selecting all boxes by class "box"
     const boxes = document.querySelectorAll('.box')
-
-    // loop over the boxes array and give us one box at a time
+    
     for (let box of boxes) {
-
-        // grab the number from the box (and convert it into a number data type)
         let boxNum = Number(box.textContent)
-
-        // check if the box number is more than or equal the guessed number
         if (boxNum >= guess) {
-            // change the box background color to red
             box.style.backgroundColor = 'red';
         }
     }
