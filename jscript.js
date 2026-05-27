@@ -105,10 +105,10 @@ function guessNumberGame() {
         return;
 
     } else if (guess < randomNumber) {
-        guess = Number(window.prompt(`The number ${guess} is too low! Try again. 
+        guess = Number(window.alert(`The number ${guess} is too low! Try again. 
                 \n ${numOfGuesses} guesses remain.`));
     } else {
-        guess = Number(window.prompt(`The number ${guess} is too high! Try again. 
+        guess = Number(window.alert(`The number ${guess} is too high! Try again. 
                 \n ${numOfGuesses} guesses remain.`));
     }
 
@@ -118,7 +118,7 @@ function guessNumberGame() {
     } else{
         betweenNumbs[1] = guess;
     }
-    paintBoxes(betweenNumbs);
+    //paintBoxes(betweenNumbs);
 
     //Run out guess check
     if (numOfGuesses === 0) {
