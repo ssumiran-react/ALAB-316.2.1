@@ -1,4 +1,4 @@
-let userName = window.prompt("Please enter your name:", "John Doe");
+/*let userName = window.prompt("Please enter your name:", "John Doe");
 
 const grid = document.getElementById("grid-container");
 grid.style.display = "flex";
@@ -70,3 +70,82 @@ hint = 3
 
 
 console.log(userName);*/
+
+
+// select the div with id grid
+const grid = document.getElementById('app');
+
+// create the game grid
+for (let i = 1; i <= 100; i++) {
+    // create a div in memory
+    const div = document.createElement('div');
+    div.classList.add('box');
+    div.textContent = i;
+    // add the div to the page
+    grid.appendChild(div);
+}
+
+
+// generate a number 1-100
+const randomNumber = 55
+
+// number of guesses
+let numOfGuesses = 3;
+let betweenNumbs = [];
+let guess = 0;
+// delay a second or 1000ms loading
+setTimeout(guessNumberGame, 1000);
+function guessNumberGame() {
+
+    guess = Number(prompt('Guess a number from 1-100'));
+
+    if (guess === randomNumber) {
+        window.alert(`The number is ${guess}. You win!`);
+
+        return;
+
+    } else if (guess < randomNumber) {
+        guess = Number(window.prompt(`The number ${guess} is too low! Try again. 
+                \n ${numOfGuesses} guesses remain.`));
+    } else {
+        guess = Number(window.prompt(`The number ${guess} is too high! Try again. 
+                \n ${numOfGuesses} guesses remain.`));
+    }
+
+    if (guess > betweenNumbs[0]) {
+        betweenNumbs[0] = guess;
+
+    } else{
+        betweenNumbs[1] = guess;
+    }
+    paintBoxes(betweenNumbs);
+
+    //Run out guess check
+    if (numOfGuesses === 0) {
+        window.alert(`Run out of ${numOfGuesses} guesses. You lose!`);
+        return;
+    }
+    numOfGuesses--;
+
+    setTimeout(guessNumberGame, 1000);
+}
+
+function paintBoxes(betweenNumbs) {
+
+
+    // selecting all boxes by class "box"
+    const boxes = document.querySelectorAll('.box')
+
+    // loop over the boxes array and give us one box at a time
+    for (let box of boxes) {
+
+        // grab the number from the box (and convert it into a number data type)
+        let boxNum = Number(box.textContent)
+
+        // check if the box number is more than or equal the guessed number
+        if (boxNum >= guess) {
+            // change the box background color to red
+            box.style.backgroundColor = 'red';
+        }
+    }
+}
